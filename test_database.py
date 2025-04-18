@@ -112,14 +112,35 @@ def test_persistence_after_exit():
     ]
     assert result2 == expected2, f"Expected {expected2}, but got {result2}"
 
+def test_print_constants():
+    """
+    Test that the database prints constants correctly.
+    """
+    script = [
+        ".constants",
+        ".exit",
+    ]
+    result = run_script(script)
+    expected = [
+        "db > Constants:",
+        "ROW_SIZE: 293",
+        "COMMON_NODE_HEADER_SIZE: 6",
+        "LEAF_NODE_HEADER_SIZE: 10",
+        "LEAF_NODE_CELL_SIZE: 297",
+        "LEAF_NODE_SPACE_FOR_CELLS: 4086",
+        "LEAF_NODE_MAX_CELLS: 13",
+        "db > ",
+    ]
+    assert result == expected, f"Expected {expected}, but got {result}"
+
 if __name__ == "__main__":
     test_insert_and_select()
     test_table_full_error()
     test_string_too_long_error()
     test_maximum_length_strings()
     test_persistence_after_exit()
+    test_print_constants()
     print("All tests passed!")
 
-    
     if os.path.exists("test.db"):
         os.remove("test.db")

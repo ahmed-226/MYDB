@@ -133,6 +133,27 @@ def test_print_constants():
     ]
     assert result == expected, f"Expected {expected}, but got {result}"
 
+def test_print_btree_structure():
+    """
+    Test that the database prints the structure of a one-node B-tree.
+    """
+    script = [f"insert {i} user{i} person{i}@example.com" for i in [3, 1, 2]]
+    script.append(".btree")
+    script.append(".exit")
+    result = run_script(script)
+    expected = [
+        "db > Executed.",
+        "db > Executed.",
+        "db > Executed.",
+        "db > Tree:",
+        "leaf (size 3)",
+        "  - 0 : 3",
+        "  - 1 : 1",
+        "  - 2 : 2",
+        "db > ",
+    ]
+    assert result == expected, f"Expected {expected}, but got {result}"
+
 if __name__ == "__main__":
     test_insert_and_select()
     test_table_full_error()
@@ -140,6 +161,7 @@ if __name__ == "__main__":
     test_maximum_length_strings()
     test_persistence_after_exit()
     test_print_constants()
+    test_print_btree_structure()
     print("All tests passed!")
 
     if os.path.exists("test.db"):

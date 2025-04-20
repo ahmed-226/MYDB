@@ -1,2 +1,30 @@
+# Build artifacts
+build/
+*.o
+*.obj
 *.exe
+*.out
+mydb
+
+# Database files
 *.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*~
+
+# CMake files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+main_copy.c
+*.sh
+
+

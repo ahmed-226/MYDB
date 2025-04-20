@@ -147,9 +147,29 @@ def test_print_btree_structure():
         "db > Executed.",
         "db > Tree:",
         "leaf (size 3)",
-        "  - 0 : 3",
-        "  - 1 : 1",
-        "  - 2 : 2",
+        "  - 0 : 1",
+        "  - 1 : 2",
+        "  - 2 : 3",
+        "db > ",
+    ]
+    assert result == expected, f"Expected {expected}, but got {result}"
+
+def test_duplicate_id_error():
+    """
+    Test that the database prints an error message if there is a duplicate ID.
+    """
+    script = [
+        "insert 1 user1 person1@example.com",
+        "insert 1 user1 person1@example.com",
+        "select",
+        ".exit",
+    ]
+    result = run_script(script)
+    expected = [
+        "db > Executed.",
+        "db > Error: Duplicate key.",
+        "db > (1, user1, person1@example.com)",
+        "Executed.",
         "db > ",
     ]
     assert result == expected, f"Expected {expected}, but got {result}"
@@ -162,6 +182,7 @@ if __name__ == "__main__":
     test_persistence_after_exit()
     test_print_constants()
     test_print_btree_structure()
+    test_duplicate_id_error()
     print("All tests passed!")
 
     if os.path.exists("test.db"):

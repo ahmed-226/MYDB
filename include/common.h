@@ -14,6 +14,7 @@
 #define COLUMN_EMAIL_SIZE 255
 #define TABLE_MAX_PAGES 100
 #define PAGE_SIZE  4096
+#define INVALID_PAGE_NUM UINT32_MAX
 
 #define size_of_attribute(Struct, Attribute) sizeof(((Struct*)0)->Attribute)
 
@@ -40,9 +41,7 @@ typedef enum { NODE_INTERNAL, NODE_LEAF } NodeType;
 
 typedef enum { STATEMENT_INSERT, STATEMENT_SELECT } StatementType;
 
-// Function to print indentation for tree display
 void indent(uint32_t level);
-
 void print_constants(void);
 
 #endif 

@@ -38,6 +38,8 @@ extern const uint32_t INTERNAL_NODE_NUM_KEYS_OFFSET;
 extern const uint32_t INTERNAL_NODE_RIGHT_CHILD_SIZE;
 extern const uint32_t INTERNAL_NODE_RIGHT_CHILD_OFFSET;
 extern const uint32_t INTERNAL_NODE_HEADER_SIZE;
+extern const uint32_t INTERNAL_NODE_MAX_CELLS;
+extern const uint32_t INTERNAL_NODE_CELL_SIZE;
 
 // Internal Node Body Layout
 extern const uint32_t INTERNAL_NODE_KEY_SIZE;
@@ -60,6 +62,9 @@ uint32_t* internal_node_right_child(void* node);
 uint32_t* internal_node_cell(void* node, uint32_t cell_num);
 uint32_t* internal_node_child(void* node, uint32_t child_num);
 uint32_t* internal_node_key(void* node, uint32_t key_num);
-uint32_t get_node_max_key(void* node);
+extern const uint32_t LEAF_NODE_NEXT_LEAF_SIZE;
+extern const uint32_t LEAF_NODE_NEXT_LEAF_OFFSET;
+uint32_t* leaf_node_next_leaf(void* node);
+uint32_t* node_parent(void* node);
 
 #endif

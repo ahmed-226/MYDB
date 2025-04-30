@@ -1,4 +1,5 @@
 #include "../include/row.h"
+#include "../include/common.h"
 
 void serialize_row(Row* source, void* destination) {
   memcpy(destination + ID_OFFSET, &(source->id), ID_SIZE);

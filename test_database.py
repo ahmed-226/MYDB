@@ -125,9 +125,9 @@ def test_print_constants():
         "db > Constants:",
         "ROW_SIZE: 293",
         "COMMON_NODE_HEADER_SIZE: 6",
-        "LEAF_NODE_HEADER_SIZE: 10",
+        "LEAF_NODE_HEADER_SIZE: 14",
         "LEAF_NODE_CELL_SIZE: 297",
-        "LEAF_NODE_SPACE_FOR_CELLS: 4086",
+        "LEAF_NODE_SPACE_FOR_CELLS: 4082",
         "LEAF_NODE_MAX_CELLS: 13",
         "db > ",
     ]
@@ -174,6 +174,43 @@ def test_duplicate_id_error():
     ]
     assert result == expected, f"Expected {expected}, but got {result}"
 
+
+def test_three_leaf_node_btree():
+    """
+    Test that the database prints the structure of a 3-leaf-node B-tree.
+    """
+    script = [f"insert {i} user{i} person{i}@example.com" for i in range(1, 15)]
+    script.append(".btree")
+    script.append("insert 15 user15 person15@example.com")
+    script.append(".exit")
+    result = run_script(script)
+    
+    expected = [
+        "db > Tree:",
+        "- internal (size 1)",
+        "  - leaf (size 7)",
+        "    - 1",
+        "    - 2",
+        "    - 3",
+        "    - 4",
+        "    - 5",
+        "    - 6",
+        "    - 7",
+        "  - key 7",
+        "  - leaf (size 7)",
+        "    - 8",
+        "    - 9",
+        "    - 10",
+        "    - 11",
+        "    - 12",
+        "    - 13",
+        "    - 14",
+        "db > Need to implement searching an internal node",
+    ]
+
+    tree_output = result[14:14+len(expected)]
+    assert tree_output == expected, f"Expected:\n{expected}\n\nGot:\n{tree_output}"
+
 if __name__ == "__main__":
     test_insert_and_select()
     test_table_full_error()
@@ -183,6 +220,7 @@ if __name__ == "__main__":
     test_print_constants()
     test_print_btree_structure()
     test_duplicate_id_error()
+    test_three_leaf_node_btree() 
     print("All tests passed!")
 
     if os.path.exists("test.db"):

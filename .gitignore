@@ -24,7 +24,8 @@ cmake_install.cmake
 __pycache__/
 *.py[cod]
 
-main_copy.c
+*.c
+!src/
 *.sh
 
 
